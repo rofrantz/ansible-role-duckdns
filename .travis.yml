@@ -47,11 +47,6 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - >
-    travis_retry curl --insecure -s -o /dev/null -w "%{http_code}" http://localhost:8096
-    | grep -q '302'
-    && (echo 'Status code 302 test: pass' && exit 0)
-    || (echo 'Status code 302 test: fail' && exit 1)
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
