@@ -23,8 +23,17 @@ Role Variables
 --------------
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    emby_user: emby
-    emby_group: root
+    # defaults file for duckdns
+    duckdns_project_root: /etc/duckdns
+    duckdns_project_log: /var/log/duckdns
+    
+    # DuckDNS local machine settings
+    duckdns_user: duckdns
+    duckdns_group: duckdns
+    
+    # DuckDNS remote settings
+    duckdns_subdomain: your-duckdns-subdomain-name
+    duckdns_token: your-duckdns-token
 
 Dependencies
 ------------

@@ -47,9 +47,6 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  # Make sure emby is running
-  - service emby-server status | grep -q 'running' && (echo 'emby-server running' && exit 0) || (echo 'emby-server NOT running' && exit 1)
-
   - >
     travis_retry curl --insecure -s -o /dev/null -w "%{http_code}" http://localhost:8096
     | grep -q '302'
