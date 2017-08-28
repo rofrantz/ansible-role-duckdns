@@ -1,0 +1,43 @@
+---
+# tasks file for duckdns
+
+# Add the user with a primary group
+- group:
+    name: "{{ duckdns_group }}"
+    state: present
+
+- user:
+    name: "{{ duckdns_user }}"
+    comment: "duckdns user"
+    group: "{{ duckdns_group }}"
+    state: present
+
+- name: Install require packages
+  include: ubuntu_packages.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Ensures required directories exists
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+      - "{{ duckdns_project_root }}"
+      - "{{ duckdns_project_log }}"
+
+- name: Setup cron executable
+  template:
+    src: "templates/duck.sh"
+    dest: "{{ duckdns_project_root }}/duck.sh"
+    owner: "{{ duckdns_user }}"
+    group: "{{ duckdns_group }}"
+    mode: 700
+
+# Creates a cron file under /etc/cron.d
+- cron:
+    name: DuckDNS autoupdate
+    #special_time: hourly
+    minute: "*"
+    user: root
+    job: "{{ duckdns_project_root }}/duck.sh"
+    cron_file: duckdns-updater
+  notify: reload cron service

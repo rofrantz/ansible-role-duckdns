@@ -1,0 +1,60 @@
+---
+language: python
+python: "2.7"
+
+# Use the new container infrastructure
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    packages:
+    - python-apt
+    - python-pycurl
+    - python-pip
+
+cache:
+  pip: true
+  directories:
+    - $HOME/buildout-cache
+
+before_install:
+  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
+
+install:
+  # Install ansible
+  - pip install ansible ansible-lint
+
+  # Check ansible version
+  - ansible --version
+
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
+
+script:
+  - ansible-lint tasks/main.yml
+
+  # Basic role syntax check
+  - ansible-playbook -i tests/vagrant/inventory tests/vagrant/test.yml --syntax-check --list-tasks
+
+  # Run the role/playbook with ansible-playbook
+  - ansible-playbook -i tests/vagrant/inventory tests/vagrant/test.yml --connection=local --sudo
+
+  # Run the role/playbook again, checking to make sure it's idempotent
+  - >
+    ansible-playbook -i tests/vagrant/inventory tests/vagrant/test.yml --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+  # Make sure emby is running
+  - service emby-server status | grep -q 'running' && (echo 'emby-server running' && exit 0) || (echo 'emby-server NOT running' && exit 1)
+
+  - >
+    travis_retry curl --insecure -s -o /dev/null -w "%{http_code}" http://localhost:8096
+    | grep -q '302'
+    && (echo 'Status code 302 test: pass' && exit 0)
+    || (echo 'Status code 302 test: fail' && exit 1)
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

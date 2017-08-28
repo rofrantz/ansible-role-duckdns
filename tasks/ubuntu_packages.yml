@@ -1,0 +1,8 @@
+- name: Update repositories cache and install required packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  become: yes
+  with_items:
+    - cron
+    - curl

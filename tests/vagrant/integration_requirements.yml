@@ -1,0 +1,4 @@
+---
+
+- name: rofrantz.duckdns
+  version: origin/master

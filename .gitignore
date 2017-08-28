@@ -1,0 +1,6 @@
+
+/tests/vagrant/.vagrant/
+/tests/vagrant/rofrantz.emby/
+/tests/vagrant/test.retry
+/tests/vagrant/ubuntu-xenial-16.04-cloudimg-console.log
+/tests/vagrant/integration_requirements.yml.bak

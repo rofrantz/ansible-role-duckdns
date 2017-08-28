@@ -1,0 +1,22 @@
+---
+
+- name: Test duckdns role
+  hosts: "{{hosts_group|default('all')}}"
+
+  vars:
+      duckdns_subdomain: frantz-test-htpc.duckdns.org
+      duckdns_token: 86f21c89-6ab9-4c0e-9617-d9be2ae09030
+
+  roles:
+    - role: rofrantz.duckdns
+      tags:
+        - build
+        - duckdns
+
+  post_tasks:
+    - name: "Check if cron is running"
+      service:
+        state: started
+        name: cron
+      tags:
+        - assert
