@@ -4,8 +4,8 @@
   hosts: "{{hosts_group|default('all')}}"
 
   vars:
-      duckdns_subdomain: frantz-test-htpc.duckdns.org
-      duckdns_token: 86f21c89-6ab9-4c0e-9617-d9be2ae09030
+    duckdns_subdomain: your-duckdns-subdomain-name
+    duckdns_token: your-duckdns-token
 
   roles:
     - role: rofrantz.duckdns
