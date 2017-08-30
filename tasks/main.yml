@@ -35,8 +35,7 @@
 # Creates a cron file under /etc/cron.d
 - cron:
     name: DuckDNS autoupdate
-    #special_time: hourly
-    minute: "*"
+    special_time: hourly
     user: root
     job: "{{ duckdns_project_root }}/duck.sh"
     cron_file: duckdns-updater
