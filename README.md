@@ -1,6 +1,6 @@
 DuckDns w/Ansible 
 =========
-[![Ansible Role](https://img.shields.io/ansible/role/16391.svg)](https://galaxy.ansible.com/rofrantz/duckdns/)
+[![Ansible Role](https://img.shields.io/ansible/role/20102.svg)](https://galaxy.ansible.com/rofrantz/duckdns/)
 [![Build Status](https://travis-ci.org/rofrantz/ansible-role-duckdns.svg?branch=master)](https://travis-ci.org/rofrantz/ansible-role-duckdns)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://galaxy.ansible.com/rofrantz/duckdns/)
 
