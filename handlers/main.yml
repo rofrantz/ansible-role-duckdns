@@ -3,4 +3,4 @@
 - name: reload cron service
   service:
     name: cron
-    state: reloaded
+    state: restarted
