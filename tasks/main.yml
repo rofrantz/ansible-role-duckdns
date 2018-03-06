@@ -40,3 +40,8 @@
     job: "{{ duckdns_project_root }}/duck.sh"
     cron_file: duckdns-updater
   notify: reload cron service
+
+- name: Update the IP Address Now
+  shell: "{{ duckdns_project_root }}/duck.sh"
+  changed_when: false
+  when: duckdns_update_now

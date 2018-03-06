@@ -11,7 +11,7 @@ Requirements
 Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 ## ansible.cfg
-This role is designed to work with merge "hash_behaviour". Make sure your
+This role is designed to work with merge "hash\_behaviour". Make sure your
 ansible.cfg contains these settings
 
 ```INI
@@ -34,6 +34,9 @@ Available variables are listed below, along with default values (see `defaults/m
     # DuckDNS remote settings
     duckdns_subdomain: your-duckdns-subdomain-name
     duckdns_token: your-duckdns-token
+
+    # DuckDNS immediate update
+    duckdns_update_now: no
 
 Dependencies
 ------------

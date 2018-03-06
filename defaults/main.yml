@@ -10,3 +10,6 @@ duckdns_group: duckdns
 # DuckDNS remote settings
 duckdns_subdomain: your-duckdns-subdomain-name
 duckdns_token: your-duckdns-token
+
+# DuckDNS immediate update
+duckdns_update_now: no
