@@ -13,7 +13,7 @@
     state: present
 
 - name: Install require packages
-  include: ubuntu_packages.yml
+  include_tasks: ubuntu_packages.yml
   when: ansible_distribution == "Ubuntu"
 
 - name: Ensures required directories exists
