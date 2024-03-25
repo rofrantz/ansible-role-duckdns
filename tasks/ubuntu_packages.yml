@@ -1,8 +1,8 @@
 - name: Update repositories cache and install required packages
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ item }}"
     state: latest
-  become: yes
+  become: True
   with_items:
     - cron
     - curl

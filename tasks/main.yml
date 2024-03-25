@@ -1,23 +1,24 @@
 ---
 # tasks file for duckdns
 
-# Add the user with a primary group
-- group:
+- name: "Add the {{ duckdns_group }} group"
+  ansible.builtin.group:
     name: "{{ duckdns_group }}"
     state: present
 
-- user:
+- name: "Add the {{ duckdns_user }} user"
+  ansible.builtin.user:
     name: "{{ duckdns_user }}"
     comment: "duckdns user"
     group: "{{ duckdns_group }}"
     state: present
 
 - name: Install require packages
-  include: ubuntu_packages.yml
+  ansible.builtin.include_tasks: ubuntu_packages.yml
   when: ansible_distribution == "Ubuntu"
 
 - name: Ensures required directories exists
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: "directory"
   with_items:
@@ -25,15 +26,16 @@
       - "{{ duckdns_project_log }}"
 
 - name: Setup cron executable
-  template:
+  ansible.builtin.template:
     src: "templates/duck.sh"
     dest: "{{ duckdns_project_root }}/duck.sh"
     owner: "{{ duckdns_user }}"
     group: "{{ duckdns_group }}"
     mode: 700
 
-# Creates a cron file under /etc/cron.d
-- cron:
+# 
+- name: "Create duck.sh cron file under /etc/cron.d"
+  ansible.builtin.cron:
     name: DuckDNS autoupdate
     special_time: hourly
     user: root
@@ -42,6 +44,6 @@
   notify: reload cron service
 
 - name: Update the IP Address Now
-  shell: "{{ duckdns_project_root }}/duck.sh"
+  ansible.builtin.shell: "{{ duckdns_project_root }}/duck.sh"
   changed_when: false
   when: duckdns_update_now
